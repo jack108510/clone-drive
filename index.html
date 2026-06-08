@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloneDrive — Your Computer, Backed Up Forever</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:#1a1a1a;background:#fff;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:0 24px}
+
+/* Hero */
+.hero{text-align:center;padding:80px 24px 60px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;margin-bottom:16px;line-height:1.15}
+.hero h1 span{color:#e53e3e}
+.hero p{font-size:1.2rem;color:#555;max-width:520px;margin:0 auto 32px}
+.hero .cta{display:inline-block;background:#1a1a1a;color:#fff;padding:16px 40px;border-radius:50px;font-size:1.1rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.hero .cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.hero .sub{font-size:.85rem;color:#999;margin-top:16px}
+
+/* How it works */
+.how{background:#f7f7f7;padding:60px 24px;text-align:center}
+.how h2{font-size:1.8rem;margin-bottom:48px;font-weight:700}
+.steps{display:flex;gap:32px;max-width:800px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.step{flex:1;min-width:200px;max-width:240px}
+.step .num{width:48px;height:48px;background:#e53e3e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;margin:0 auto 16px}
+.step h3{font-size:1.1rem;margin-bottom:8px}
+.step p{font-size:.9rem;color:#666}
+
+/* Products */
+.products{padding:60px 24px}
+.products h2{font-size:1.8rem;text-align:center;margin-bottom:48px;font-weight:700}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px;max-width:800px;margin:0 auto}
+.product{background:#f7f7f7;border-radius:16px;overflow:hidden;text-align:center;transition:transform .2s}
+.product:hover{transform:translateY(-4px)}
+.product img{width:100%;height:220px;object-fit:cover;background:#e8e8e8}
+.product .info{padding:24px}
+.product h3{font-size:1.2rem;margin-bottom:4px}
+.product .size{color:#888;font-size:.9rem;margin-bottom:12px}
+.product .price{font-size:1.6rem;font-weight:700;color:#1a1a1a}
+.product .price span{font-size:.9rem;color:#888;font-weight:400}
+.product .tag{display:inline-block;background:#e53e3e;color:#fff;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:12px}
+
+/* Why */
+.why{background:#f7f7f7;padding:60px 24px;text-align:center}
+.why h2{font-size:1.8rem;margin-bottom:40px;font-weight:700}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;max-width:800px;margin:0 auto}
+.why-item h3{font-size:1.05rem;margin-bottom:6px}
+.why-item p{font-size:.9rem;color:#666}
+
+/* FAQ */
+.faq{padding:60px 24px;max-width:640px;margin:0 auto}
+.faq h2{font-size:1.8rem;text-align:center;margin-bottom:40px;font-weight:700}
+.faq-item{border-bottom:1px solid #eee;padding:20px 0}
+.faq-item h3{font-size:1rem;cursor:pointer;position:relative}
+.faq-item h3::after{content:'+';position:absolute;right:0;color:#ccc;font-size:1.2rem}
+.faq-item.open h3::after{content:'−'}
+.faq-item p{font-size:.9rem;color:#666;margin-top:8px;display:none}
+.faq-item.open p{display:block}
+
+/* Footer */
+.footer{text-align:center;padding:40px 24px;font-size:.85rem;color:#999;border-top:1px solid #eee}
+.footer a{color:#666}
+
+@media(max-width:600px){
+  .hero{padding:50px 20px 40px}
+  .steps{flex-direction:column;align-items:center}
+  .product img{height:180px}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>Your computer, <span>backed up forever.</span></h1>
+    <p>Plug it in. Double-click. Done. Every photo, file, and program — safe on a drive you can hold in your hand.</p>
+    <a href="#products" class="cta">Get Your CloneDrive</a>
+    <div class="sub">No software to install. No subscriptions. Works on any Windows PC.</div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="how">
+  <div class="container">
+    <h2>3 steps. That's it.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Plug in the drive</h3>
+        <p>Connect CloneDrive to any USB port on your computer.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Double-click</h3>
+        <p>Open the drive, double-click "Back Up My PC", and type YES.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>You're done</h3>
+        <p>Go get coffee. When it's done, your entire PC is backed up — files, programs, everything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products" id="products">
+  <div class="container">
+    <h2>Pick your size</h2>
+    <div class="product-grid">
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&h=300&fit=crop" alt="USB flash drive 64GB">
+        <div class="info">
+          <div class="tag">Most popular</div>
+          <h3>CloneDrive 64GB</h3>
+          <div class="size">Great for documents, photos, and essentials</div>
+          <div class="price">$49 <span>one-time</span></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=300&fit=crop" alt="External hard drive 256GB">
+        <div class="info">
+          <div class="tag">Best value</div>
+          <h3>CloneDrive 256GB</h3>
+          <div class="size">Back up your whole PC — files, programs, settings</div>
+          <div class="price">$89 <span>one-time</span></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=500&h=300&fit=crop" alt="External hard drive 1TB">
+        <div class="info">
+          <h3>CloneDrive 1TB</h3>
+          <div class="size">Full system clone. Bootable. Complete peace of mind.</div>
+          <div class="price">$149 <span>one-time</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Why -->
+<section class="why">
+  <div class="container">
+    <h2>Why CloneDrive?</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>🔒 No subscriptions</h3>
+        <p>Buy it once. Use it forever. No monthly fees, no accounts to create.</p>
+      </div>
+      <div class="why-item">
+        <h3>⚡ Nothing to install</h3>
+        <p>It's built into the drive. Plug in, click, done. Works on any Windows PC.</p>
+      </div>
+      <div class="why-item">
+        <h3>💾 Everything is saved</h3>
+        <p>Your photos, documents, programs, settings — the whole computer, exactly as it is.</p>
+      </div>
+      <div class="why-item">
+        <h3>🛡️ Restore if disaster hits</h3>
+        <p>Computer crashes? Stolen? Just plug in CloneDrive and bring it all back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Questions?</h2>
+
+  <div class="faq-item">
+    <h3>What if my computer dies?</h3>
+    <p>Your CloneDrive has a full copy. Plug it into any Windows PC and your files are right there. The 1TB version is even bootable — you can start your computer directly from the drive.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Is it really that easy?</h3>
+    <p>Yes. Plug it in, double-click "Back Up My PC", type YES. That's it. No software to download, no setup wizard, no tech knowledge needed.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How long does a backup take?</h3>
+    <p>Depends on how much is on your computer. Most people are done in 30 minutes to 2 hours. You can keep using your computer while it backs up.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Can I back up more than one computer?</h3>
+    <p>Yes. Each backup is saved in a separate folder with the date and computer name. You can back up your whole family's computers on one drive.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>What's the difference between the sizes?</h3>
+    <p>64GB covers documents and photos. 256GB backs up most full PCs. 1TB creates a complete bootable clone — if your PC dies, you can boot straight from the drive and everything works.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Do you offer refunds?</h3>
+    <p>Yes. 30-day money-back guarantee. If it doesn't work for you, send it back.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+  <p>CloneDrive by <a href="https://jack108510.github.io/wildrose-automations/">Wildrose Automations</a></p>
+  <p style="margin-top:8px">Edmonton, Alberta · support@wildroseautomations.ca</p>
+</div>
+
+<script>
+document.querySelectorAll('.faq-item h3').forEach(h => {
+  h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+});
+</script>
+</body>
+</html>
