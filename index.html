@@ -3,217 +3,396 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CloneDrive — Your Computer, Backed Up Forever</title>
+<title>CloneDrive — Find the Right Backup Drive for Your Device</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:#1a1a1a;background:#fff;line-height:1.6}
-.container{max-width:900px;margin:0 auto;padding:0 24px}
+.container{max-width:800px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;max-width:800px;margin:0 auto}
+.nav .logo{font-size:1.3rem;font-weight:700;text-decoration:none;color:#1a1a1a}
+.nav .logo span{color:#e53e3e}
+.nav a{color:#888;font-size:.9rem;text-decoration:none}
 
 /* Hero */
-.hero{text-align:center;padding:80px 24px 60px}
-.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;margin-bottom:16px;line-height:1.15}
+.hero{text-align:center;padding:40px 24px 20px}
+.hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;margin-bottom:12px;line-height:1.2}
 .hero h1 span{color:#e53e3e}
-.hero p{font-size:1.2rem;color:#555;max-width:520px;margin:0 auto 32px}
-.hero .cta{display:inline-block;background:#1a1a1a;color:#fff;padding:16px 40px;border-radius:50px;font-size:1.1rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s}
-.hero .cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
-.hero .sub{font-size:.85rem;color:#999;margin-top:16px}
+.hero p{font-size:1.1rem;color:#666;max-width:480px;margin:0 auto}
+
+/* Quiz */
+.quiz{padding:30px 24px 60px}
+.quiz-box{background:#f7f7f7;border-radius:20px;padding:40px 32px;max-width:600px;margin:0 auto}
+
+/* Steps indicator */
+.steps-indicator{display:flex;justify-content:center;gap:8px;margin-bottom:32px}
+.step-dot{width:10px;height:10px;border-radius:50%;background:#ddd;transition:all .3s}
+.step-dot.active{background:#e53e3e;width:28px;border-radius:5px}
+
+/* Question */
+.quiz-step{display:none}
+.quiz-step.active{display:block}
+.quiz-step h2{font-size:1.3rem;font-weight:600;margin-bottom:24px;text-align:center}
+
+/* Options grid */
+.options{display:grid;gap:12px}
+.options.cols-2{grid-template-columns:1fr 1fr}
+.options.cols-3{grid-template-columns:1fr 1fr 1fr}
+.options.cols-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.option{background:#fff;border:2px solid #eee;border-radius:14px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;font-size:.95rem}
+.option:hover{border-color:#e53e3e;transform:translateY(-2px)}
+.option.selected{border-color:#e53e3e;background:#fff5f5}
+.option .icon{font-size:2rem;margin-bottom:6px}
+.option .label{font-weight:500}
+
+/* Back button */
+.back-btn{background:none;border:none;color:#999;font-size:.9rem;cursor:pointer;margin-top:20px;padding:8px 0}
+.back-btn:hover{color:#333}
+
+/* Result */
+.result{display:none;text-align:center;padding:20px 0}
+.result.active{display:block}
+.result .badge{display:inline-block;background:#e53e3e;color:#fff;font-size:.8rem;font-weight:600;padding:6px 16px;border-radius:20px;margin-bottom:20px}
+.result h2{font-size:1.6rem;font-weight:700;margin-bottom:8px}
+.result .subtitle{color:#666;margin-bottom:28px}
+.result .drive-img{width:100%;max-width:350px;border-radius:16px;margin-bottom:20px;background:#f0f0f0}
+.result .price{font-size:2rem;font-weight:700;margin-bottom:4px}
+.result .price-note{color:#999;font-size:.85rem;margin-bottom:24px}
+.result .features{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left;margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto}
+.result .feat{background:#f7f7f7;padding:12px 16px;border-radius:10px;font-size:.9rem}
+.result .feat strong{display:block;font-size:.8rem;color:#888;font-weight:500;margin-bottom:2px}
+.result .cta{display:inline-block;background:#1a1a1a;color:#fff;padding:16px 48px;border-radius:50px;font-size:1.1rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.result .cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.result .guarantee{font-size:.8rem;color:#999;margin-top:12px}
+.result .other{margin-top:24px;padding-top:20px;border-top:1px solid #eee}
+.result .other h4{font-size:.9rem;color:#888;margin-bottom:12px}
+.result .other-drive{display:inline-flex;align-items:center;gap:8px;background:#f7f7f7;padding:8px 16px;border-radius:10px;font-size:.85rem;margin:4px}
 
 /* How it works */
-.how{background:#f7f7f7;padding:60px 24px;text-align:center}
-.how h2{font-size:1.8rem;margin-bottom:48px;font-weight:700}
-.steps{display:flex;gap:32px;max-width:800px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.step{flex:1;min-width:200px;max-width:240px}
-.step .num{width:48px;height:48px;background:#e53e3e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;margin:0 auto 16px}
-.step h3{font-size:1.1rem;margin-bottom:8px}
-.step p{font-size:.9rem;color:#666}
-
-/* Products */
-.products{padding:60px 24px}
-.products h2{font-size:1.8rem;text-align:center;margin-bottom:48px;font-weight:700}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px;max-width:800px;margin:0 auto}
-.product{background:#f7f7f7;border-radius:16px;overflow:hidden;text-align:center;transition:transform .2s}
-.product:hover{transform:translateY(-4px)}
-.product img{width:100%;height:220px;object-fit:cover;background:#e8e8e8}
-.product .info{padding:24px}
-.product h3{font-size:1.2rem;margin-bottom:4px}
-.product .size{color:#888;font-size:.9rem;margin-bottom:12px}
-.product .price{font-size:1.6rem;font-weight:700;color:#1a1a1a}
-.product .price span{font-size:.9rem;color:#888;font-weight:400}
-.product .tag{display:inline-block;background:#e53e3e;color:#fff;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:12px}
-
-/* Why */
-.why{background:#f7f7f7;padding:60px 24px;text-align:center}
-.why h2{font-size:1.8rem;margin-bottom:40px;font-weight:700}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;max-width:800px;margin:0 auto}
-.why-item h3{font-size:1.05rem;margin-bottom:6px}
-.why-item p{font-size:.9rem;color:#666}
-
-/* FAQ */
-.faq{padding:60px 24px;max-width:640px;margin:0 auto}
-.faq h2{font-size:1.8rem;text-align:center;margin-bottom:40px;font-weight:700}
-.faq-item{border-bottom:1px solid #eee;padding:20px 0}
-.faq-item h3{font-size:1rem;cursor:pointer;position:relative}
-.faq-item h3::after{content:'+';position:absolute;right:0;color:#ccc;font-size:1.2rem}
-.faq-item.open h3::after{content:'−'}
-.faq-item p{font-size:.9rem;color:#666;margin-top:8px;display:none}
-.faq-item.open p{display:block}
+.how{background:#f7f7f7;padding:50px 24px;text-align:center}
+.how h2{font-size:1.5rem;margin-bottom:36px;font-weight:700}
+.how-steps{display:flex;gap:24px;max-width:700px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.how-step{flex:1;min-width:160px}
+.how-step .num{width:40px;height:40px;background:#e53e3e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;margin:0 auto 12px}
+.how-step h3{font-size:1rem;margin-bottom:4px}
+.how-step p{font-size:.85rem;color:#666}
 
 /* Footer */
-.footer{text-align:center;padding:40px 24px;font-size:.85rem;color:#999;border-top:1px solid #eee}
+.footer{text-align:center;padding:30px 24px;font-size:.8rem;color:#999;border-top:1px solid #eee}
 .footer a{color:#666}
 
-@media(max-width:600px){
-  .hero{padding:50px 20px 40px}
-  .steps{flex-direction:column;align-items:center}
-  .product img{height:180px}
+@media(max-width:500px){
+  .options.cols-3,.options.cols-4{grid-template-columns:1fr 1fr}
+  .quiz-box{padding:28px 20px}
+  .result .features{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
+<!-- Nav -->
+<div class="nav container">
+  <a href="#" class="logo" onclick="resetQuiz()">Clone<span>Drive</span></a>
+  <a href="#how">How it works</a>
+</div>
+
 <!-- Hero -->
 <section class="hero">
-  <div class="container">
-    <h1>Your computer, <span>backed up forever.</span></h1>
-    <p>Plug it in. Double-click. Done. Every photo, file, and program — safe on a drive you can hold in your hand.</p>
-    <a href="#products" class="cta">Get Your CloneDrive</a>
-    <div class="sub">No software to install. No subscriptions. Works on any Windows PC.</div>
+  <h1>Find the right backup drive for <span>your device</span></h1>
+  <p>Tell us what you're backing up. We'll pick the perfect drive for you.</p>
+</section>
+
+<!-- Quiz -->
+<section class="quiz">
+  <div class="quiz-box">
+    <div class="steps-indicator">
+      <div class="step-dot" id="dot-0"></div>
+      <div class="step-dot" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+    </div>
+
+    <!-- Step 1: Device type -->
+    <div class="quiz-step active" id="step-0">
+      <h2>What do you want to back up?</h2>
+      <div class="options cols-3">
+        <div class="option" onclick="select(0,'device','phone')">
+          <div class="icon">📱</div>
+          <div class="label">Phone</div>
+        </div>
+        <div class="option" onclick="select(0,'device','tablet')">
+          <div class="icon">📟</div>
+          <div class="label">Tablet / iPad</div>
+        </div>
+        <div class="option" onclick="select(0,'device','laptop')">
+          <div class="icon">💻</div>
+          <div class="label">Laptop</div>
+        </div>
+        <div class="option" onclick="select(0,'device','desktop')">
+          <div class="icon">🖥️</div>
+          <div class="label">Desktop PC</div>
+        </div>
+        <div class="option" onclick="select(0,'device','server')">
+          <div class="icon">🖧</div>
+          <div class="label">Server</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Brand -->
+    <div class="quiz-step" id="step-1">
+      <h2>What brand is it?</h2>
+      <div class="options cols-4" id="brand-options"></div>
+      <button class="back-btn" onclick="goBack(0)">← Back</button>
+    </div>
+
+    <!-- Step 3: Model -->
+    <div class="quiz-step" id="step-2">
+      <h2>Which model?</h2>
+      <div class="options cols-2" id="model-options"></div>
+      <button class="back-btn" onclick="goBack(1)">← Back</button>
+    </div>
+
+    <!-- Result -->
+    <div class="result" id="result">
+      <div class="badge">✓ Recommended for you</div>
+      <h2 id="result-name"></h2>
+      <div class="subtitle" id="result-subtitle"></div>
+      <img class="drive-img" id="result-img" src="" alt="Recommended drive">
+      <div class="price" id="result-price"></div>
+      <div class="price-note">One-time payment · No subscriptions · Free shipping</div>
+      <div class="features" id="result-features"></div>
+      <a href="#" class="cta">Order Now</a>
+      <div class="guarantee">30-day money-back guarantee</div>
+      <div class="other" id="result-other">
+        <h4>Also works great for:</h4>
+        <div id="result-other-items"></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- How it works -->
-<section class="how">
-  <div class="container">
-    <h2>3 steps. That's it.</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="num">1</div>
-        <h3>Plug in the drive</h3>
-        <p>Connect CloneDrive to any USB port on your computer.</p>
-      </div>
-      <div class="step">
-        <div class="num">2</div>
-        <h3>Double-click</h3>
-        <p>Open the drive, double-click "Back Up My PC", and type YES.</p>
-      </div>
-      <div class="step">
-        <div class="num">3</div>
-        <h3>You're done</h3>
-        <p>Go get coffee. When it's done, your entire PC is backed up — files, programs, everything.</p>
-      </div>
+<section class="how" id="how">
+  <h2>How CloneDrive works</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="num">1</div>
+      <h3>Plug it in</h3>
+      <p>Connect to any USB port</p>
     </div>
-  </div>
-</section>
-
-<!-- Products -->
-<section class="products" id="products">
-  <div class="container">
-    <h2>Pick your size</h2>
-    <div class="product-grid">
-
-      <div class="product">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&h=300&fit=crop" alt="USB flash drive 64GB">
-        <div class="info">
-          <div class="tag">Most popular</div>
-          <h3>CloneDrive 64GB</h3>
-          <div class="size">Great for documents, photos, and essentials</div>
-          <div class="price">$49 <span>one-time</span></div>
-        </div>
-      </div>
-
-      <div class="product">
-        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=300&fit=crop" alt="External hard drive 256GB">
-        <div class="info">
-          <div class="tag">Best value</div>
-          <h3>CloneDrive 256GB</h3>
-          <div class="size">Back up your whole PC — files, programs, settings</div>
-          <div class="price">$89 <span>one-time</span></div>
-        </div>
-      </div>
-
-      <div class="product">
-        <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=500&h=300&fit=crop" alt="External hard drive 1TB">
-        <div class="info">
-          <h3>CloneDrive 1TB</h3>
-          <div class="size">Full system clone. Bootable. Complete peace of mind.</div>
-          <div class="price">$149 <span>one-time</span></div>
-        </div>
-      </div>
-
+    <div class="how-step">
+      <div class="num">2</div>
+      <h3>Double-click</h3>
+      <p>Open "Back Up My PC"</p>
     </div>
-  </div>
-</section>
-
-<!-- Why -->
-<section class="why">
-  <div class="container">
-    <h2>Why CloneDrive?</h2>
-    <div class="why-grid">
-      <div class="why-item">
-        <h3>🔒 No subscriptions</h3>
-        <p>Buy it once. Use it forever. No monthly fees, no accounts to create.</p>
-      </div>
-      <div class="why-item">
-        <h3>⚡ Nothing to install</h3>
-        <p>It's built into the drive. Plug in, click, done. Works on any Windows PC.</p>
-      </div>
-      <div class="why-item">
-        <h3>💾 Everything is saved</h3>
-        <p>Your photos, documents, programs, settings — the whole computer, exactly as it is.</p>
-      </div>
-      <div class="why-item">
-        <h3>🛡️ Restore if disaster hits</h3>
-        <p>Computer crashes? Stolen? Just plug in CloneDrive and bring it all back.</p>
-      </div>
+    <div class="how-step">
+      <div class="num">3</div>
+      <h3>Done</h3>
+      <p>Your device is fully backed up</p>
     </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq">
-  <h2>Questions?</h2>
-
-  <div class="faq-item">
-    <h3>What if my computer dies?</h3>
-    <p>Your CloneDrive has a full copy. Plug it into any Windows PC and your files are right there. The 1TB version is even bootable — you can start your computer directly from the drive.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>Is it really that easy?</h3>
-    <p>Yes. Plug it in, double-click "Back Up My PC", type YES. That's it. No software to download, no setup wizard, no tech knowledge needed.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>How long does a backup take?</h3>
-    <p>Depends on how much is on your computer. Most people are done in 30 minutes to 2 hours. You can keep using your computer while it backs up.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>Can I back up more than one computer?</h3>
-    <p>Yes. Each backup is saved in a separate folder with the date and computer name. You can back up your whole family's computers on one drive.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>What's the difference between the sizes?</h3>
-    <p>64GB covers documents and photos. 256GB backs up most full PCs. 1TB creates a complete bootable clone — if your PC dies, you can boot straight from the drive and everything works.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>Do you offer refunds?</h3>
-    <p>Yes. 30-day money-back guarantee. If it doesn't work for you, send it back.</p>
   </div>
 </section>
 
 <!-- Footer -->
 <div class="footer">
-  <p>CloneDrive by <a href="https://jack108510.github.io/wildrose-automations/">Wildrose Automations</a></p>
-  <p style="margin-top:8px">Edmonton, Alberta · support@wildroseautomations.ca</p>
+  <p>CloneDrive by <a href="https://jack108510.github.io/wildrose-automations/">Wildrose Automations</a> · Edmonton, Alberta</p>
 </div>
 
 <script>
-document.querySelectorAll('.faq-item h3').forEach(h => {
-  h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
-});
+const answers = {};
+
+const brands = {
+  phone: ['Apple','Samsung','Google','Other'],
+  tablet: ['Apple','Samsung','Google','Other'],
+  laptop: ['Apple','Dell','HP','Lenovo','ASUS','Acer','Other'],
+  desktop: ['Dell','HP','Lenovo','ASUS','Custom Build','Other'],
+  server: ['Dell','HP','Lenovo','Custom Build','Other']
+};
+
+const models = {
+  phone: {
+    Apple: ['iPhone 16 Pro Max','iPhone 16','iPhone 15','iPhone 14','iPhone 13 or older'],
+    Samsung: ['Galaxy S25','Galaxy S24','Galaxy S23','Galaxy A series'],
+    Google: ['Pixel 9','Pixel 8','Pixel 7 or older'],
+    Other: ['Any phone']
+  },
+  tablet: {
+    Apple: ['iPad Pro 13"','iPad Pro 11"','iPad Air','iPad','iPad Mini'],
+    Samsung: ['Galaxy Tab S9','Galaxy Tab A','Galaxy Tab S8 or older'],
+    Google: ['Pixel Tablet'],
+    Other: ['Any tablet']
+  },
+  laptop: {
+    Apple: ['MacBook Pro 16"','MacBook Pro 14"','MacBook Air 15"','MacBook Air 13"','MacBook older'],
+    Dell: ['XPS 15/16','XPS 13','Inspiron','Latitude'],
+    HP: ['Spectre','Envy','Pavilion','EliteBook'],
+    Lenovo: ['ThinkPad X1','ThinkPad T series','Yoga','IdeaPad'],
+    ASUS: ['ZenBook','VivoBook','ROG Gaming','TUF Gaming'],
+    Acer: ['Swift','Aspire','Predator Gaming'],
+    Other: ['Any laptop']
+  },
+  desktop: {
+    Dell: ['XPS Desktop','OptiPlex','Inspiron Desktop','Alienware'],
+    HP: ['Pavilion Desktop','Envy Desktop','OMEN Gaming'],
+    Lenovo: ['ThinkCentre','IdeaCentre','Legion Gaming'],
+    ASUS: ['ROG Gaming','ExpertCenter'],
+    'Custom Build': ['Gaming PC','Workstation','General use'],
+    Other: ['Any desktop']
+  },
+  server: {
+    Dell: ['PowerEdge R series','PowerEdge T series'],
+    HP: ['ProLiant DL','ProLiant ML'],
+    Lenovo: ['ThinkSystem SR','ThinkSystem ST'],
+    'Custom Build': ['Custom server','NAS'],
+    Other: ['Any server']
+  }
+};
+
+function estimateStorage(device, brand, model) {
+  const m = (model || '').toLowerCase();
+  const b = (brand || '').toLowerCase();
+  
+  if (device === 'phone') {
+    if (b === 'apple') {
+      if (m.includes('16 pro max') || m.includes('15 pro max')) return 256;
+      if (m.includes('16') || m.includes('15')) return 128;
+      return 64;
+    }
+    if (m.includes('s25') || m.includes('s24') || m.includes('s23')) return 256;
+    return 64;
+  }
+  if (device === 'tablet') {
+    if (m.includes('pro 13')) return 512;
+    if (m.includes('pro 11')) return 256;
+    if (m.includes('air')) return 128;
+    return 64;
+  }
+  if (device === 'laptop') {
+    if (b === 'apple') {
+      if (m.includes('16') || m.includes('pro 14')) return 512;
+      return 256;
+    }
+    if (m.includes('gaming') || m.includes('rog') || m.includes('alienware') || m.includes('predator') || m.includes('tuf') || m.includes('legion') || m.includes('omen')) return 1000;
+    if (m.includes('xps 15') || m.includes('xps 16') || m.includes('spectre') || m.includes('thinkpad x1') || m.includes('zenbook')) return 512;
+    return 256;
+  }
+  if (device === 'desktop') {
+    if (m.includes('gaming') || m.includes('rog') || m.includes('alienware') || m.includes('omen') || m.includes('legion')) return 1000;
+    if (m.includes('workstation')) return 1000;
+    return 512;
+  }
+  if (device === 'server') return 2000;
+  return 256;
+}
+
+function getRecommendation(needed) {
+  if (needed <= 64) return {
+    tier: 'mini',
+    name: 'CloneDrive Mini',
+    subtitle: 'Perfect for backing up your phone',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&h=350&fit=crop',
+    price: '$49',
+    size: '64GB USB Flash Drive',
+    features: ['<strong>Format</strong> USB 3.1 Flash Drive','<strong>Speed</strong> Fast backup in ~15 min','<strong>Fits</strong> On your keychain','<strong>Covers</strong> Photos, contacts, apps'],
+    alsoFor: ['Photos & videos','Contacts & messages','App data','Music library']
+  };
+  if (needed <= 256) return {
+    tier: 'pro',
+    name: 'CloneDrive Pro',
+    subtitle: 'Back up your laptop — files, programs, everything',
+    img: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=500&h=350&fit=crop',
+    price: '$89',
+    size: '256GB Portable SSD',
+    features: ['<strong>Format</strong> Portable SSD (USB 3.2)','<strong>Speed</strong> Full backup in ~30 min','<strong>Fits</strong> In your pocket','<strong>Covers</strong> Files, programs, settings'],
+    alsoFor: ['Laptop backup','Tablet backup','Phone + laptop combo','Photo library']
+  };
+  if (needed <= 512) return {
+    tier: 'ultra',
+    name: 'CloneDrive Ultra',
+    subtitle: 'Full PC clone — bootable backup of everything',
+    img: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=350&fit=crop',
+    price: '$129',
+    size: '512GB Portable SSD',
+    features: ['<strong>Format</strong> Portable SSD (USB 3.2)','<strong>Speed</strong> Full clone in ~1 hour','<strong>Bootable</strong> Start your PC from the drive','<strong>Covers</strong> Everything — OS, programs, files'],
+    alsoFor: ['Full PC clone','Desktop + laptop','Large photo/video library','Business workstation']
+  };
+  return {
+    tier: 'max',
+    name: 'CloneDrive Max',
+    subtitle: 'Complete server and workstation backup',
+    img: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=350&fit=crop',
+    price: '$199',
+    size: '1TB Portable SSD',
+    features: ['<strong>Format</strong> Portable SSD (USB 3.2)','<strong>Speed</strong> Full clone in ~2 hours','<strong>Bootable</strong> Start your PC from the drive','<strong>Covers</strong> Servers, multi-PC, everything'],
+    alsoFor: ['Server backup','Multiple computers','Full business backup','Massive media library']
+  };
+}
+
+function select(step, key, value) {
+  answers[key] = value;
+  
+  // Highlight selected
+  document.querySelectorAll(`#step-${step} .option`).forEach(o => o.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  
+  setTimeout(() => {
+    if (step === 0) {
+      // Populate brands
+      const brandOpts = brands[value] || ['Other'];
+      const html = brandOpts.map(b => `<div class="option" onclick="select(1,'brand','${b}')"><div class="label">${b}</div></div>`).join('');
+      document.getElementById('brand-options').innerHTML = html;
+      showStep(1);
+    } else if (step === 1) {
+      // Populate models
+      const modelList = (models[answers.device] || {})[value] || ['Any'];
+      const html = modelList.map(m => `<div class="option" onclick="select(2,'model','${m}')"><div class="label">${m}</div></div>`).join('');
+      document.getElementById('model-options').innerHTML = html;
+      showStep(2);
+    } else if (step === 2) {
+      showResult();
+    }
+  }, 250);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(`step-${n}`).classList.add('active');
+  document.querySelectorAll('.step-dot').forEach((d, i) => d.classList.toggle('active', i === n));
+  document.getElementById('result').classList.remove('active');
+}
+
+function goBack(n) {
+  showStep(n);
+}
+
+function showResult() {
+  const needed = estimateStorage(answers.device, answers.brand, answers.model);
+  const rec = getRecommendation(needed);
+  
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.step-dot').forEach(d => d.classList.add('active'));
+  document.getElementById('dot-2').classList.add('active');
+  
+  document.getElementById('result-name').textContent = rec.name;
+  document.getElementById('result-subtitle').textContent = rec.subtitle;
+  document.getElementById('result-img').src = rec.img;
+  document.getElementById('result-img').alt = rec.name;
+  document.getElementById('result-price').textContent = rec.price;
+  document.getElementById('result-features').innerHTML = rec.features.map(f => `<div class="feat">${f}</div>`).join('');
+  document.getElementById('result-other-items').innerHTML = rec.alsoFor.map(a => `<span class="other-drive">${a}</span>`).join('');
+  
+  document.getElementById('result').classList.add('active');
+}
+
+function resetQuiz() {
+  answers.device = null;
+  answers.brand = null;
+  answers.model = null;
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('result').classList.remove('active');
+  showStep(0);
+}
 </script>
 </body>
 </html>
